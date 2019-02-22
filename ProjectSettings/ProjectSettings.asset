@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 15
-  productGUID: 4fa44aee6d18d174d92edef85a3efd0e
+  productGUID: c28ba8d22421110499ce810042c00c1e
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   defaultScreenOrientation: 4
@@ -12,7 +12,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: Don't Get Hit
+  productName: Dont_Get_Hit
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -558,14 +558,14 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Don't Get Hit
+  metroPackageName: Dont_Get_Hit
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: Don't Get Hit
+  metroApplicationDescription: Dont_Get_Hit
   wsaImages: {}
   metroTileShortName: 
   metroCommandLineArgsFile: 
@@ -634,9 +634,9 @@ PlayerSettings:
   cloudServicesEnabled: {}
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 9cf9c581-01a9-4dfb-8b7c-c984737903d1
-  projectName: Don't Get Hit
-  organizationId: justinfrauenhofer
+  cloudProjectId: deec6039-161a-4601-9d3d-93f6ff5a044b
+  projectName: Dont_Get_Hit
+  organizationId: iizerd
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
