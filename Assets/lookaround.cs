@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lookaround : MonoBehaviour {
+public class lookaround : MonoBehaviour
+{
     public float fl_pitch_sens = 1F;
     public float fl_yaw_sense = 1F;
 
@@ -39,5 +40,8 @@ public class lookaround : MonoBehaviour {
 
         transform.rotation = Quaternion.Euler(fl_pitch, fl_yaw, 0.0f);
 
+        Assets.BasePlayer.fl_pitch = fl_pitch;
+        Assets.BasePlayer.fl_yaw = fl_yaw;
     }
+
 }

@@ -10,7 +10,7 @@ public class accelerate : MonoBehaviour
     public float fl_deceleration = 0.5F;
     public float fl_currentspeed = 0F;
     public float fl_stamina = 100F;
-    public bool can_use_stamina = true;
+    bool can_use_stamina = true;
     
 	void Start()
     {
@@ -39,5 +39,9 @@ public class accelerate : MonoBehaviour
         if (fl_currentspeed > fl_maxspeed)  fl_currentspeed = fl_maxspeed;
         else if (fl_currentspeed < fl_minspeed)  fl_currentspeed = fl_minspeed;
 
+        Assets.BasePlayer.fl_velocity = fl_currentspeed;
+        Assets.BasePlayer.fl_stamina = fl_stamina;
+        Assets.BasePlayer.b_useStamina = can_use_stamina;
+        Assets.BasePlayer.fl_acceleration = fl_acceleration + (using_stamina ? fl_acceleration / 2F : 0);
     }
 }

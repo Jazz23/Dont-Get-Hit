@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class translate : MonoBehaviour {
+public class translate : MonoBehaviour
+{
 
     public float fl_translatespeed = 0.5F;
 
@@ -10,7 +11,7 @@ public class translate : MonoBehaviour {
     {
 		
 	}
-
+    
 	void Update()
     {
 		if (Input.GetKey(KeyCode.A))
