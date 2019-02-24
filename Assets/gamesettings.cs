@@ -7,11 +7,19 @@ namespace Assets
 {
     public static class BasePlayer
     {
-        public static bool b_useStamina;
+
+        public static int i_health;
+        
         public static float fl_stamina;
         public static float fl_velocity;
         public static float fl_acceleration;
         public static float fl_yaw;
         public static float fl_pitch;
+
+        public static bool b_useStamina;
+    }
+    public static class GameSettings
+    {
+        public static int i_tickcount;
     }
 }
