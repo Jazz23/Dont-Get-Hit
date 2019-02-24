@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets;
 
 public class translate : MonoBehaviour
 {
@@ -14,9 +15,11 @@ public class translate : MonoBehaviour
     
 	void Update()
     {
-		if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
             transform.Translate(Vector3.left * fl_translatespeed);
         else if (Input.GetKey(KeyCode.D))
-            transform.Translate(Vector3.left * -fl_translatespeed);
-	}
+            transform.Translate(Vector3.right * fl_translatespeed);
+
+        transform.Translate(Vector3.forward * BasePlayer.fl_velocity);
+    }
 }

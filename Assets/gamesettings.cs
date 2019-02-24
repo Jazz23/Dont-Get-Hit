@@ -15,6 +15,7 @@ namespace Assets
         public static float fl_acceleration;
         public static float fl_yaw;
         public static float fl_pitch;
+        public static float fl_friction;
 
         public static bool b_useStamina;
     }

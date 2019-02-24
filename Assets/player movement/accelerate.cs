@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets;
 
 public class accelerate : MonoBehaviour
 {
@@ -8,8 +9,9 @@ public class accelerate : MonoBehaviour
     public float fl_minspeed = -10F;
     public float fl_acceleration = 0.1F;
     public float fl_deceleration = 0.5F;
-    public float fl_currentspeed = 0F;
+    public float fl_velocity = 0F;
     public float fl_stamina = 100F;
+    public float fl_friction = 1F;
     bool can_use_stamina = true;
     
 	void Start()
@@ -31,17 +33,20 @@ public class accelerate : MonoBehaviour
         else if (fl_stamina < 0) fl_stamina = 0;
 
         if (Input.GetKey(KeyCode.W))
-            fl_currentspeed += fl_acceleration + (using_stamina ? fl_acceleration/2F : 0);
+            fl_velocity += fl_acceleration + (using_stamina ? fl_acceleration/2F : 0);
         else if (Input.GetKey(KeyCode.S))
-            fl_currentspeed -= fl_deceleration;
-        
-        //Mathf.Clamp(fl_currentspeed, fl_minspeed, fl_maxspeed); uhh wtf why doesnt this work?
-        if (fl_currentspeed > fl_maxspeed)  fl_currentspeed = fl_maxspeed;
-        else if (fl_currentspeed < fl_minspeed)  fl_currentspeed = fl_minspeed;
+            fl_velocity = fl_velocity < 0 ? -1 : fl_velocity - fl_deceleration;
+        else if (!Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W) && fl_velocity != 0)
+            fl_velocity += Mathf.Clamp(fl_friction * fl_velocity / Mathf.Abs(fl_velocity) * -1 * fl_acceleration, -fl_velocity, fl_velocity);
 
-        Assets.BasePlayer.fl_velocity = fl_currentspeed;
-        Assets.BasePlayer.fl_stamina = fl_stamina;
-        Assets.BasePlayer.b_useStamina = can_use_stamina;
-        Assets.BasePlayer.fl_acceleration = fl_acceleration + (using_stamina ? fl_acceleration / 2F : 0);
+        //Mathf.Clamp(fl_velocity, fl_minspeed, fl_maxspeed); uhh wtf why doesnt this work?
+        if (fl_velocity > fl_maxspeed)  fl_velocity = fl_maxspeed;
+        else if (fl_velocity < fl_minspeed)  fl_velocity = fl_minspeed;
+
+        BasePlayer.fl_velocity = fl_velocity;
+        BasePlayer.fl_stamina = fl_stamina;
+        BasePlayer.b_useStamina = can_use_stamina;
+        BasePlayer.fl_acceleration = fl_acceleration + (using_stamina ? fl_acceleration / 2F : 0);
+        BasePlayer.fl_friction = fl_friction;
     }
 }
