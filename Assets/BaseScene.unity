@@ -122,15 +122,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400008, guid: 10d5972a5440d489f8a54e2d7498188b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 129.69135
+      value: 1.73
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: 10d5972a5440d489f8a54e2d7498188b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 42.2
+      value: 1.86
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: 10d5972a5440d489f8a54e2d7498188b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 356.63153
+      value: 14.93
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: 10d5972a5440d489f8a54e2d7498188b, type: 3}
       propertyPath: m_LocalRotation.x
@@ -154,15 +154,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: 10d5972a5440d489f8a54e2d7498188b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 696.9731
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: 10d5972a5440d489f8a54e2d7498188b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 696.9727
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: 10d5972a5440d489f8a54e2d7498188b, type: 3}
       propertyPath: m_LocalScale.z
-      value: 696.9727
+      value: 21
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 10d5972a5440d489f8a54e2d7498188b, type: 3}
@@ -880,6 +880,7 @@ Transform:
   - {fileID: 970243577}
   - {fileID: 1447116747}
   - {fileID: 975894563}
+  - {fileID: 1723979258}
   m_Father: {fileID: 1967675974}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1685,7 +1686,7 @@ GameObject:
   - component: {fileID: 975894565}
   - component: {fileID: 975894564}
   m_Layer: 0
-  m_Name: Eye_Right (1)
+  m_Name: Eye_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2199,7 +2200,7 @@ GameObject:
   - component: {fileID: 1723979260}
   - component: {fileID: 1723979259}
   m_Layer: 0
-  m_Name: Eye_Right_1
+  m_Name: Eye_Left_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2212,11 +2213,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1723979257}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.18, y: -1.9399986, z: 4.65}
+  m_LocalPosition: {x: -2.18, y: -1.94, z: 4.6500206}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
-  m_Father: {fileID: 1967675974}
-  m_RootOrder: 2
+  m_Father: {fileID: 582862373}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1723979259
 MeshRenderer:
@@ -2759,7 +2760,6 @@ Transform:
   m_Children:
   - {fileID: 582862373}
   - {fileID: 1072449386}
-  - {fileID: 1723979258}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
