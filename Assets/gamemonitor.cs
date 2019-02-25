@@ -14,5 +14,6 @@ public class gamemonitor : MonoBehaviour
 	void Update()
     {
         Assets.GameSettings.i_tickcount++;
+	Assets.BasePlayer.fl_speed = Mathf.abs(Assets.BasePlayer.fl_velocity);
     }
 }
