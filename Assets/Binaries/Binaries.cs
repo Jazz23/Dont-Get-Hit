@@ -29,5 +29,24 @@ namespace Assets.Binaries
         {
             return __angle % __normal_range;
         }
+
+        /// <summary>
+        /// This was pasted from the intrenet, this gets us the values in the inspector. Useful for customizing target and starting angles.
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        public static float WrapAngle(this float angle)
+        {
+            angle %= 360;
+            return angle > 180 ? angle - 360 : angle;
+        }
+
+        public static float UnwrapAngle(this float angle)
+        {
+            if (angle >= 0)
+                return angle;
+            angle = -angle % 360;
+            return 360 - angle;
+        }
     }
 }
