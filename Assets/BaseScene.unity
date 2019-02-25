@@ -2793,7 +2793,7 @@ MonoBehaviour:
   fl_deceleration: 0.001
   fl_velocity: 0
   fl_stamina: 100
-  fl_friction: 1
+  fl_friction: 0.3
 --- !u!1 &2000573794
 GameObject:
   m_ObjectHideFlags: 0
