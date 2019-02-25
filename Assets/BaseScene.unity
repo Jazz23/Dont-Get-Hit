@@ -513,7 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a88943f2cad73c4eb5b48c0b7b6a233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fl_distance: 90
+  fl_distance: 1
 --- !u!1 &364771452
 GameObject:
   m_ObjectHideFlags: 0
@@ -2774,7 +2774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1485b8c106dc3f4489a76d59158557c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fl_translateSpeed: 1.5
+  fl_translateSpeed: 0.02
   fl_translateAcceleration: 0
 --- !u!114 &1967675976
 MonoBehaviour:
@@ -2787,10 +2787,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 759344da0da37414da88b3ca207e69d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fl_maxspeed: 13
-  fl_minspeed: -10
-  fl_acceleration: 0.05
-  fl_deceleration: 0.2
+  fl_maxspeed: 0.15
+  fl_minspeed: -0.1
+  fl_acceleration: 0.0008
+  fl_deceleration: 0.001
   fl_velocity: 0
   fl_stamina: 100
   fl_friction: 1
