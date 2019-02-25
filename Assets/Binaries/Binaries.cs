@@ -25,5 +25,9 @@ namespace Assets.Binaries
         {
             return _float * (180 / Mathf.PI);
         }
+        public static float NormalizeAngle(float __angle, float __normal_range = 360)
+        {
+            return __angle % __normal_range;
+        }
     }
 }
