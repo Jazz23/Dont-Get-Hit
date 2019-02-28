@@ -43,6 +43,6 @@ public class translate : MonoBehaviour
         else
             transform.Translate(Vector3.left * fl_translateSpeed * fl_translateAcceleration);
 
-        transform.Translate(Vector3.forward * BasePlayer.fl_velocity);
+        transform.Translate(Vector3.forward * __BasePlayer.fl_velocity);
     }
 }

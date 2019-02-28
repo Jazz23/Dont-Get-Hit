@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets
 {
-    public static class BasePlayer
+    public static class __BasePlayer
     {
 
         public static int i_health;

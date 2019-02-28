@@ -43,10 +43,10 @@ public class accelerate : MonoBehaviour
         if (fl_velocity > fl_maxspeed)  fl_velocity = fl_maxspeed;
         else if (fl_velocity < fl_minspeed)  fl_velocity = fl_minspeed;
 
-        BasePlayer.fl_velocity = fl_velocity;
-        BasePlayer.fl_stamina = fl_stamina;
-        BasePlayer.b_useStamina = can_use_stamina;
-        BasePlayer.fl_acceleration = fl_acceleration + (using_stamina ? fl_acceleration / 2F : 0);
-        BasePlayer.fl_friction = fl_friction;
+        __BasePlayer.fl_velocity = fl_velocity;
+        __BasePlayer.fl_stamina = fl_stamina;
+        __BasePlayer.b_useStamina = can_use_stamina;
+        __BasePlayer.fl_acceleration = fl_acceleration + (using_stamina ? fl_acceleration / 2F : 0);
+        __BasePlayer.fl_friction = fl_friction;
     }
 }
