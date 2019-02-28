@@ -15,7 +15,7 @@ public class OpenElement : MonoBehaviour {
 	// Fonction Update s'execute à chaque frame (si tu tourne à 60FPS elles s'éxecute 60 fois en 1 seconde.
 	void Update () {
 
-		if (Input.GetKeyDown(keyboard)) {
+		if (Input.GetKeyDown(KeyCode.Space)) {
 			// on reccupère la variable EtatPorte du controlleur d'animation, et on lui affecte la valeur 1
 			if (Opening.GetInteger ("EtatAnim") == 1) {
 				Opening.SetInteger("EtatAnim",2);
