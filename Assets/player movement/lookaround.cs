@@ -40,8 +40,8 @@ public class lookaround : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(fl_pitch, fl_yaw, 0.0f);
 
-        Assets.BasePlayer.fl_pitch = fl_pitch;
-        Assets.BasePlayer.fl_yaw = fl_yaw;
+        Assets.__BasePlayer.fl_pitch = fl_pitch;
+        Assets.__BasePlayer.fl_yaw = fl_yaw;
     }
 
 }

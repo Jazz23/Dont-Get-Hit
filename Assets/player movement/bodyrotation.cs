@@ -12,7 +12,7 @@ public class bodyrotation : MonoBehaviour
 	
 	void Update()
     {
-        float rotation = Assets.BasePlayer.fl_yaw * fl_bodyRotationAmount;
+        float rotation = Assets.__BasePlayer.fl_yaw * fl_bodyRotationAmount;
 
         transform.rotation = Quaternion.Euler(0f, rotation, 0f);
     }
