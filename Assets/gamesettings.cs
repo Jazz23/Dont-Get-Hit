@@ -18,6 +18,8 @@ namespace Assets
         public static float fl_friction;
 
         public static bool b_useStamina;
+
+        public static float Gravity = -9.8f;
     }
     public static class GameSettings
     {
