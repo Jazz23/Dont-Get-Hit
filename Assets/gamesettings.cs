@@ -26,6 +26,6 @@ namespace Assets
     }
     public static class GameSettings
     {
-        public static int i_tickcount;
+
     }
 }
