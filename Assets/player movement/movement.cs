@@ -39,6 +39,6 @@ public class movement : MonoBehaviour
         movement = transform.TransformDirection(movement);
         _charController.Move(movement);
 
-        transform.RotateAround(wheel.position, Vector3.up, deltaX * max_speed);
+        transform.RotateAround(wheel.position, Vector3.up, deltaX * max_speed / 6);
     }
 }
