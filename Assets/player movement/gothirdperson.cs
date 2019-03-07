@@ -7,6 +7,7 @@ public class gothirdperson : MonoBehaviour
     bool b_pressed = false;
     bool b_position = false;
     public float fl_distance = 40f;
+
     void Start()
     {
 
