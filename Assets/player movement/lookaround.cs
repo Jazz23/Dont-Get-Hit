@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Assets.Binaries;
 
 public class lookaround : MonoBehaviour
 {
@@ -23,8 +24,7 @@ public class lookaround : MonoBehaviour
 
 	void Start()
     {
-        fl_pitch = 0F;
-        fl_yaw = 0F;
+        gameObject.Explode(100);
 	}
 	
 	void Update()

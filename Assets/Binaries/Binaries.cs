@@ -27,7 +27,10 @@ namespace Assets.Binaries
         }
         public static float NormalizeAngle(float __angle, float __normal_range = 360)
         {
-            return __angle % __normal_range;
+            float ang = Math.Abs(__angle);
+            ang %= __normal_range;
+
+            return __angle < 0 ? -ang : ang;
         }
 
         /// <summary>
@@ -47,6 +50,12 @@ namespace Assets.Binaries
                 return angle;
             angle = -angle % 360;
             return 360 - angle;
+        }
+
+        public static void Explode(this GameObject obj, int severity)
+        {
+            Vector3 pos = obj.transform.position;
+
         }
     }
 }

@@ -9,12 +9,14 @@ using System.Linq;
 [AddComponentMenu("Control Script/FPS Input")]
 public class movement : MonoBehaviour
 {
-    public float max_speed = 6.0f;
+    public float max_velocity = 6.0f;
+    public float min_velocity = -1f;
     public float acceleration = 1f;
     public float velocity = 0f;
     public float gravity = -9.8f;
     public float friction = 0.3f;
     public float turn_speed = 0.2f;
+    public float stamina = 100f;
     public Transform wheel;
 
     private CharacterController _charController;
@@ -27,16 +29,13 @@ public class movement : MonoBehaviour
 
     void Update()
     {
-        //transform.RotateAround(wheel.transform.position, Vector3.up, speed / 3);
-        //transform.Rotate(Vector3.up, speed / 3, Space.Self);
-        //transform.Translate(Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0, Input.GetAxis("Vertical") * speed * Time.deltaTime);
         float deltaX = Input.GetAxis("Horizontal");
         float deltaZ = Input.GetAxis("Vertical");
-        velocity = Mathf.Clamp(deltaZ * acceleration + velocity, -1, max_speed);
+        velocity = Mathf.Clamp(deltaZ * acceleration + velocity, min_velocity, max_velocity);
         velocity = Mathf.Abs(velocity) <= friction ? 0 : velocity - Mathf.Sign(velocity) * friction;
 
         Vector3 movement = new Vector3(0, 0, velocity);
-        movement = Vector3.ClampMagnitude(movement, max_speed);
+        movement = Vector3.ClampMagnitude(movement, max_velocity);
         movement.y = gravity;
         movement *= Time.deltaTime;
         movement = transform.TransformDirection(movement);
