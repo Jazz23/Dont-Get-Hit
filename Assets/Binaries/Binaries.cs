@@ -56,6 +56,21 @@ namespace Assets.Binaries
         {
             Vector3 pos = obj.transform.position;
 
+            var mat = new Material(Shader.Find("blood_red"));
+
+            for (int i = 0; i < severity; i++)
+            {
+                GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                sphere.AddComponent<Rigidbody>();
+                sphere.GetComponent<Renderer>().material = mat;
+                sphere.transform.Rotate(0, UnityEngine.Random.Range(0, 360), 0);
+                sphere.GetComponent<Rigidbody>().AddForce(obj.transform.forward * UnityEngine.Random.Range(1.5f, 5));
+                sphere.GetComponent<Rigidbody>().AddForce(obj.transform.up * UnityEngine.Random.Range(1.5f, 5));
+            }
+
+            //GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            //cube.AddComponent<Rigidbody>();
+            //cube.transform.position = new Vector3(x, y, 0);
         }
     }
 }

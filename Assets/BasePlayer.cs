@@ -60,6 +60,6 @@ public class BasePlayer : MonoBehaviour
 	
 	void Update()
     {
-		
+
 	}
 }
