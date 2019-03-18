@@ -55,7 +55,16 @@ namespace Assets.Binaries
         public static void Explode(this GameObject obj, int severity)
         {
             Vector3 pos = obj.transform.position;
+        }
 
+        public static int ToInt(this bool bol)
+        {
+            return bol ? 1 : 0;
+        }
+
+        public static float Logistic(this float flot, float upper, float stretch)
+        {
+            return upper / (1f + Mathf.Pow((float)Math.E, -flot / stretch));
         }
     }
 }
