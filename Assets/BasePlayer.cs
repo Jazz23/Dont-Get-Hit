@@ -1,11 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Binaries;
 
 public class BasePlayer : MonoBehaviour
 {
 
-    public static int i_health;
+    public static int health;
+
+    //enumerate player actions. so you dont have to do if (acceleration > 0.f) or stuff.
+    //usage if (gameObject.GetComponet<BasePlayer>().Actions & ACCELERATING)
+    public enum aActions {ACCELERATING, DECELERATING, STOPPED, TURNING, THIRDPERSON }
+
+    public aActions PlayerActions
+    {
+        get { return PlayerActions; }
+        set { PlayerActions |= value; }
+    }
+
+    
+    void AddMultipleActions(params aActions[] action)
+    {
+        for (int i = 0; i < action.Length; i++)
+        {
+            PlayerActions |= action[i];
+        }
+    }
+
+
 
     public float MaxVel
     {
@@ -61,5 +83,5 @@ public class BasePlayer : MonoBehaviour
 	void Update()
     {
 
-	}
+    }
 }

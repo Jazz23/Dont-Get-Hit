@@ -55,17 +55,20 @@ namespace Assets.Binaries
         public static void Explode(this GameObject obj, int severity)
         {
             Vector3 pos = obj.transform.position;
-
-            var mat = new Material(Shader.Find("blood_red"));
-
+            
+            //var mat = new Material(Shader.Find("blood_red"));
+            
             for (int i = 0; i < severity; i++)
             {
                 GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 sphere.AddComponent<Rigidbody>();
-                sphere.GetComponent<Renderer>().material = mat;
-                sphere.transform.Rotate(0, UnityEngine.Random.Range(0, 360), 0);
-                sphere.GetComponent<Rigidbody>().AddForce(obj.transform.forward * UnityEngine.Random.Range(1.5f, 5));
-                sphere.GetComponent<Rigidbody>().AddForce(obj.transform.up * UnityEngine.Random.Range(1.5f, 5));
+                //sphere.GetComponent<Renderer>().material = mat;
+
+                GameObject _sphere = GameObject.Instantiate(sphere, pos, Quaternion.identity);
+                sphere.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                _sphere.transform.Rotate(0, UnityEngine.Random.Range(15, 315), 0);
+                _sphere.GetComponent<Rigidbody>().AddForce(obj.transform.forward * UnityEngine.Random.Range(1f, 1.5f));
+                _sphere.GetComponent<Rigidbody>().AddForce(obj.transform.up * UnityEngine.Random.Range(1f, 1.5f));
             }
 
             //GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Cube);

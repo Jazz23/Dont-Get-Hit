@@ -15,7 +15,7 @@ public class movement : MonoBehaviour
     public float velocity = 0f;
     public float gravity = -9.8f;
     public float friction = 0.3f;
-    public float turn_speed = 0.2f;
+    public float turn_speed = 2f;
     public float stamina = 100f;
     public Transform wheel;
 
@@ -41,6 +41,9 @@ public class movement : MonoBehaviour
         movement = transform.TransformDirection(movement);
         _charController.Move(movement);
 
-        transform.RotateAround(wheel.position, Vector3.up, deltaX * turn_speed * (Mathf.Abs(velocity) + 1));
+        float newmax = (max_velocity / 2f + max_velocity);
+        float _turnspd = (newmax - velocity) / newmax;
+
+        transform.RotateAround(wheel.position, Vector3.up, deltaX * _turnspd/*turn_speed / (Mathf.Abs(velocity)/  + 1)*/);
     }
 }
