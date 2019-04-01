@@ -18,25 +18,30 @@ public class BasePlayer : MonoBehaviour
 	return health;
     }
 
+
+    /*
+    TODO: 
+	Add leaning which will allow for sharper turns.
+	Lean using q and e
+    */
     //enumerate player actions. so you dont have to do if (acceleration > 0.f) or stuff.
     //usage if (gameObject.GetComponet<BasePlayer>().Actions & ACCELERATING)
-    public enum aActions {ACCELERATING, DECELERATING, STOPPED, TURNING, THIRDPERSON }
-
+    public enum aActions { ACCELERATING, DECELERATING, STOPPED, TURNING, THIRDPERSON, JUMPING, STAMINA, LEANING }
     public aActions PlayerActions
     {
         get { return PlayerActions; }
         set { PlayerActions |= value; }
     }
-
-    
+    public void RemoveAction(pActions action)
+    {
+	PlayerActions &= ~action;
+    }
     public void AddMultipleActions(params aActions[] action)
     {
         for (int i = 0; i < action.Length; i++)
             PlayerActions |= action[i];
     }
-
-
-
+    
     public float MaxVel
     {
         get { return movement.max_velocity; }
