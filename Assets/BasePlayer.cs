@@ -6,7 +6,17 @@ using Assets.Binaries;
 public class BasePlayer : MonoBehaviour
 {
 
-    public static int health;
+    public int health
+    {
+    	get { return health; }
+	set { health = value; }
+    }
+    
+    public int TakeDamage(int damage)
+    {
+    	health-=damage;
+	return health;
+    }
 
     //enumerate player actions. so you dont have to do if (acceleration > 0.f) or stuff.
     //usage if (gameObject.GetComponet<BasePlayer>().Actions & ACCELERATING)
@@ -19,7 +29,7 @@ public class BasePlayer : MonoBehaviour
     }
 
     
-    void AddMultipleActions(params aActions[] action)
+    public void AddMultipleActions(params aActions[] action)
     {
         for (int i = 0; i < action.Length; i++)
         {
