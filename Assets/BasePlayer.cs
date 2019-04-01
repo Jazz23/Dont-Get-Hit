@@ -32,9 +32,7 @@ public class BasePlayer : MonoBehaviour
     public void AddMultipleActions(params aActions[] action)
     {
         for (int i = 0; i < action.Length; i++)
-        {
             PlayerActions |= action[i];
-        }
     }
 
 
