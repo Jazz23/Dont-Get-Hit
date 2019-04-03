@@ -24,7 +24,7 @@ public class lookaround : MonoBehaviour
 
 	void Start()
     {
-        gameObject.Explode(100);
+
 	}
 	
 	void Update()

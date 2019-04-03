@@ -8,6 +8,7 @@ namespace Assets
     public static class __BasePlayer
     {
 
+        //autism remove soon
         public static int i_health;
         
         public static float fl_maxVel;

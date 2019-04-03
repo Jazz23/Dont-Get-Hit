@@ -8,6 +8,8 @@ namespace Assets.Binaries
 {
     public static class binaries
     {
+        public enum aActions { ACCELERATING, DECELERATING, STOPPED, TURNING, THIRDPERSON, JUMPING, STAMINA, LEANLEFT, LEANRIGHT, NULLACTION }
+
         public static Vector3 GetDirection(Quaternion rotation, float fl_translatespeed)
         {
             float angle = rotation.y;

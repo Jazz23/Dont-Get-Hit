@@ -26,22 +26,25 @@ public class BasePlayer : MonoBehaviour
     */
     //enumerate player actions. so you dont have to do if (acceleration > 0.f) or stuff.
     //usage if (gameObject.GetComponet<BasePlayer>().Actions & ACCELERATING)
-    public enum aActions { ACCELERATING, DECELERATING, STOPPED, TURNING, THIRDPERSON, JUMPING, STAMINA, LEANING }
-    public aActions PlayerActions
-    {
-        get { return PlayerActions; }
-        set { PlayerActions |= value; }
-    }
-    public void RemoveAction(pActions action)
+
+    public binaries.aActions PlayerActions;
+
+    public void RemoveAction(binaries.aActions action)
     {
 	PlayerActions &= ~action;
     }
-    public void AddMultipleActions(params aActions[] action)
+    public void AddMultipleActions(params binaries.aActions[] action)
     {
         for (int i = 0; i < action.Length; i++)
             PlayerActions |= action[i];
     }
     
+    public float LeanAngle
+    {
+        get { return LeanAngle; }
+        set { LeanAngle = value; }
+    }
+
     public float MaxVel
     {
         get { return movement.max_velocity; }
