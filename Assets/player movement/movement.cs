@@ -23,13 +23,23 @@ public class movement : MonoBehaviour
 
     private CharacterController _charController;
     private BasePlayer _basePlayer;
+    private Transform _leanObj;
 
     void Start()
     {
         _charController = GetComponent<CharacterController>();
         wheel = GetComponentsInChildren<Transform>().FirstOrDefault(x => x.name == "Circle_004");
         _basePlayer = gameObject.GetComponent<BasePlayer>();
-        if (!_basePlayer)
+        if (!_basePlayer)//error handling needed
+            return;
+
+        foreach (Transform child in transform)
+            if (child.tag == "LeanBase")
+            {
+                _leanObj = child;
+                break;
+            }
+        if (!_leanObj)//error handling needed
             return;
     }
 
@@ -40,21 +50,17 @@ public class movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Q))
         {
             status = binaries.aActions.LEANLEFT;
-            //_basePlayer.LeanAngle += leanSpeed;
             leanx = leanSpeed;
         }
         else if (Input.GetKey(KeyCode.E))
         {
             status = binaries.aActions.LEANRIGHT;
-            //_basePlayer.LeanAngle -= leanSpeed;
             leanx = leanSpeed;
         }
-        else
+        else //check if we are close to 0 so there is no jittering
         {
             status = binaries.aActions.NULLACTION;
-            //_basePlayer.LeanAngle -= (Mathf.Abs(_basePlayer.LeanAngle) / _basePlayer.LeanAngle) * leanSpeed;
             leanx = -((Mathf.Abs(_basePlayer.LeanAngle) / _basePlayer.LeanAngle) * leanSpeed);
-
         }
         return status;
     }
@@ -63,7 +69,7 @@ public class movement : MonoBehaviour
     {
         float leanX = 0.0f;
         _basePlayer.PlayerActions |= HandleLeaning(out leanX);
-        //do something with leanx
+        transform.RotateAround(_leanObj.position, Vector3.forward, leanX);
 
 
         float deltaX = Input.GetAxis("Horizontal");
