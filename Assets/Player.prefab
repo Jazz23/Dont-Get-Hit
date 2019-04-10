@@ -3108,14 +3108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840ca660b9cb99e4ea776662a2e50579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVel: 0
-  minVel: 0
-  stamina: 0
-  speed: 0
-  forward_vel: 0
-  acceleration: 0
-  friction: 0
-  viewangles: {x: 0, y: 0, z: 0}
+  movement: {fileID: 0}
+  lookaround: {fileID: 0}
 --- !u!114 &114579296524542288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3139,8 +3133,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914e2dd835e0ba443bb50e21610467ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  max_velocity: 20
+  min_velocity: -1
+  acceleration: 0.15
+  velocity: 0
   gravity: -9.8
+  friction: 0.1
+  turn_speed: 0.2
+  stamina: 100
   wheel: {fileID: 0}
 --- !u!114 &114774364209335982
 MonoBehaviour:

@@ -8,6 +8,8 @@ namespace Assets.Binaries
 {
     public static class binaries
     {
+        public enum aActions { ACCELERATING, DECELERATING, STOPPED, TURNING, THIRDPERSON, JUMPING, STAMINA, LEANLEFT, LEANRIGHT, NULLACTION }
+
         public static Vector3 GetDirection(Quaternion rotation, float fl_translatespeed)
         {
             float angle = rotation.y;
@@ -55,16 +57,25 @@ namespace Assets.Binaries
         public static void Explode(this GameObject obj, int severity)
         {
             Vector3 pos = obj.transform.position;
-        }
+            
+            //var mat = new Material(Shader.Find("blood_red"));
+            
+            for (int i = 0; i < severity; i++)
+            {
+                GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                sphere.AddComponent<Rigidbody>();
+                //sphere.GetComponent<Renderer>().material = mat;
 
-        public static int ToInt(this bool bol)
-        {
-            return bol ? 1 : 0;
-        }
+                GameObject _sphere = GameObject.Instantiate(sphere, pos, Quaternion.identity);
+                sphere.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                _sphere.transform.Rotate(0, UnityEngine.Random.Range(15, 315), 0);
+                _sphere.GetComponent<Rigidbody>().AddForce(obj.transform.forward * UnityEngine.Random.Range(1f, 1.5f));
+                _sphere.GetComponent<Rigidbody>().AddForce(obj.transform.up * UnityEngine.Random.Range(1f, 1.5f));
+            }
 
-        public static float Logistic(this float flot, float upper, float stretch)
-        {
-            return upper / (1f + Mathf.Pow((float)Math.E, -flot / stretch));
+            //GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            //cube.AddComponent<Rigidbody>();
+            //cube.transform.position = new Vector3(x, y, 0);
         }
     }
 }

@@ -16,57 +16,77 @@ public class movement : MonoBehaviour
     public float velocity = 0f;
     public float gravity = -9.8f;
     public float friction = 0.3f;
-    public float turn_speed = 0.2f;
+    public float turn_speed = 2f;
     public float stamina = 100f;
-    public float endurance = 100f;
-    public float regeneration = 1f;
-    public float power = 1f;
-    public bool can_use_stamina = true;
-    public float stretch = 10f;
-
-    public float testy = 0;
-
-    bool using_stamina
-    {
-        get { return Input.GetKey(KeyCode.LeftShift); }
-    }
+    public float leanSpeed = 1f;
     public Transform wheel;
 
     private CharacterController _charController;
+    private BasePlayer _basePlayer;
+    private Transform _leanObj;
 
     void Start()
     {
         _charController = GetComponent<CharacterController>();
         wheel = GetComponentsInChildren<Transform>().FirstOrDefault(x => x.name == "Circle_004");
+        _basePlayer = gameObject.GetComponent<BasePlayer>();
+        if (!_basePlayer)//error handling needed
+            return;
+
+        foreach (Transform child in transform)
+            if (child.tag == "LeanBase")
+            {
+                _leanObj = child;
+                break;
+            }
+        if (!_leanObj)//error handling needed
+            return;
+    }
+
+    binaries.aActions HandleLeaning(out float leanx)
+    {
+        binaries.aActions status = binaries.aActions.NULLACTION;
+        // _basePlayer.LeanFloat +=
+        if (Input.GetKey(KeyCode.Q))
+        {
+            status = binaries.aActions.LEANLEFT;
+            leanx = leanSpeed;
+        }
+        else if (Input.GetKey(KeyCode.E))
+        {
+            status = binaries.aActions.LEANRIGHT;
+            leanx = leanSpeed;
+        }
+        else //check if we are close to 0 so there is no jittering
+        {
+            status = binaries.aActions.NULLACTION;
+            leanx = -((Mathf.Abs(_basePlayer.LeanAngle) / _basePlayer.LeanAngle) * leanSpeed);
+        }
+        return status;
     }
 
     void Update()
     {
-        testy = (velocity + 0.001f).Logistic(acceleration, stretch) / 10f;
-        handle_Stamina();
+        float leanX = 0.0f;
+        _basePlayer.PlayerActions |= HandleLeaning(out leanX);
+        transform.RotateAround(_leanObj.position, Vector3.forward, leanX);
+
 
         float deltaX = Input.GetAxis("Horizontal");
         float deltaZ = Input.GetAxis("Vertical");
-        velocity = deltaZ == 0 ? Mathf.Abs(velocity) <= friction ? 0 : velocity - Mathf.Sign(velocity) * friction : velocity;
-        velocity = Mathf.Clamp(deltaZ * (velocity + 0.001f).Logistic(acceleration, stretch) / 10f + velocity, min_velocity, max_velocity);
-        velocity += can_use_stamina.ToInt() * using_stamina.ToInt() * power * (velocity != 0).ToInt();
+        velocity = Mathf.Clamp(deltaZ * acceleration + velocity, min_velocity, max_velocity);
+        velocity = Mathf.Abs(velocity) <= friction ? 0 : velocity - Mathf.Sign(velocity) * friction;
 
         Vector3 movement = new Vector3(0, 0, velocity);
         movement = Vector3.ClampMagnitude(movement, max_velocity);
-        velocity = movement.magnitude;
         movement.y = gravity;
         movement *= Time.deltaTime;
         movement = transform.TransformDirection(movement);
         _charController.Move(movement);
 
-        transform.RotateAround(wheel.position, Vector3.up, deltaX * turn_speed * (Mathf.Abs(velocity) + 1));
-    }
+        float newmax = (max_velocity / 2f + max_velocity);
+        float _turnspd = (newmax - velocity) / newmax;
 
-    void handle_Stamina()
-    {
-        if (stamina <= 0f) can_use_stamina = false;
-        else if (stamina >= 20f) can_use_stamina = true;
-
-        stamina = Mathf.Clamp(stamina + (using_stamina ? -1 / endurance : regeneration) * Time.deltaTime * 100f, 0, 100);
+        transform.RotateAround(wheel.position, Vector3.up, deltaX * _turnspd/*turn_speed / (Mathf.Abs(velocity)/  + 1)*/);
     }
 }
