@@ -102,6 +102,7 @@ public class movement : MonoBehaviour
         {
             float mew = friction + breaking.ToInt() * break_speed;
             velocity = Mathf.Abs(velocity) <= mew ? 0 : velocity - Mathf.Sign(velocity) * mew;
+            velocity += deltaZ * 0.005f;
             velocity = Mathf.Clamp(velocity, min_velocity, Mathf.Infinity);
         }
 
