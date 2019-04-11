@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Binaries
 {
-    public static class binaries
+    public static class Binaries
     {
         public enum aActions { ACCELERATING, DECELERATING, STOPPED, TURNING, THIRDPERSON, JUMPING, STAMINA, LEANLEFT, LEANRIGHT, NULLACTION }
 
@@ -76,6 +76,21 @@ namespace Assets.Binaries
             //GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Cube);
             //cube.AddComponent<Rigidbody>();
             //cube.transform.position = new Vector3(x, y, 0);
+        }
+
+        public static float Logistic(float x, float y_stretch, float x_stretch)
+        {
+            return y_stretch / (1 + Mathf.Pow((float)Math.E, -(x * x_stretch)));
+        }
+
+        public static float LogisticInvs(float y, float y_stretch, float x_stretch)
+        {
+            return -Mathf.Log(y_stretch / y - 1f) / x_stretch;
+        }
+
+        public static int ToInt(this bool bol)
+        {
+            return bol ? 1 : 0;
         }
     }
 }

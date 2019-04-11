@@ -10,21 +10,41 @@ using Assets.Binaries;
 [AddComponentMenu("Control Script/FPS Input")]
 public class movement : MonoBehaviour
 {
-    public float max_velocity = 6.0f;
-    public float min_velocity = -1f;
-    public float acceleration = 1f;
+    public float max_velocity = 1f;
+    public float min_velocity = -0.005f;
     public float velocity = 0f;
+    public float acceleration = 0.15f;
+
     public float gravity = -9.8f;
-    public float friction = 0.3f;
-    public float turn_speed = 2f;
+    public float friction = 0.0005f;
+    public float break_speed = 0.5f;
+    public float turn_speed = 0.2f;
+
     public float stamina = 100f;
+    public float endurance = 100f;
+    public float regeneration = 1f;
+    public float power = 1f;
+    public bool can_use_stamina = true;
+
     public float leanSpeed = 1f;
+
+    public float testy = 0;
+
+    bool using_stamina
+    {
+        get { return can_use_stamina && Input.GetKey(KeyCode.LeftShift); }
+    }
+
+    bool breaking
+    {
+        get { return Input.GetKey(KeyCode.Space); }
+    }
+
     public Transform wheel;
 
     private CharacterController _charController;
-    private BasePlayer _basePlayer;
-    private Transform _leanObj;
-
+    BasePlayer _basePlayer;
+    Transform _leanObj;
     void Start()
     {
         _charController = GetComponent<CharacterController>();
@@ -43,23 +63,23 @@ public class movement : MonoBehaviour
             return;
     }
 
-    binaries.aActions HandleLeaning(out float leanx)
+    Binaries.aActions HandleLeaning(out float leanx)
     {
-        binaries.aActions status = binaries.aActions.NULLACTION;
+        Binaries.aActions status = Binaries.aActions.NULLACTION;
         // _basePlayer.LeanFloat +=
         if (Input.GetKey(KeyCode.Q))
         {
-            status = binaries.aActions.LEANLEFT;
+            status = Binaries.aActions.LEANLEFT;
             leanx = leanSpeed;
         }
         else if (Input.GetKey(KeyCode.E))
         {
-            status = binaries.aActions.LEANRIGHT;
+            status = Binaries.aActions.LEANRIGHT;
             leanx = leanSpeed;
         }
         else //check if we are close to 0 so there is no jittering
         {
-            status = binaries.aActions.NULLACTION;
+            status = Binaries.aActions.NULLACTION;
             leanx = -((Mathf.Abs(_basePlayer.LeanAngle) / _basePlayer.LeanAngle) * leanSpeed);
         }
         return status;
@@ -67,26 +87,37 @@ public class movement : MonoBehaviour
 
     void Update()
     {
-        float leanX = 0.0f;
-        _basePlayer.PlayerActions |= HandleLeaning(out leanX);
-        transform.RotateAround(_leanObj.position, Vector3.forward, leanX);
-
-
+        handle_Stamina();
         float deltaX = Input.GetAxis("Horizontal");
         float deltaZ = Input.GetAxis("Vertical");
-        velocity = Mathf.Clamp(deltaZ * acceleration + velocity, min_velocity, max_velocity);
-        velocity = Mathf.Abs(velocity) <= friction ? 0 : velocity - Mathf.Sign(velocity) * friction;
+        float boost = using_stamina.ToInt() * power * (velocity > 0).ToInt();
+
+        if (deltaZ > 0)
+        {
+            float c = 0.001f;
+            float x = Binaries.LogisticInvs(velocity + c, max_velocity + c, acceleration) + Time.deltaTime * acceleration;
+            velocity = Binaries.Logistic(x, max_velocity + c, acceleration);
+        }
+        else
+        {
+            float mew = friction + breaking.ToInt() * break_speed;
+            velocity = Mathf.Abs(velocity) <= mew ? 0 : velocity - Mathf.Sign(velocity) * mew;
+            velocity = Mathf.Clamp(velocity, min_velocity, Mathf.Infinity);
+        }
 
         Vector3 movement = new Vector3(0, 0, velocity);
-        movement = Vector3.ClampMagnitude(movement, max_velocity);
         movement.y = gravity;
-        movement *= Time.deltaTime;
         movement = transform.TransformDirection(movement);
         _charController.Move(movement);
 
-        float newmax = (max_velocity / 2f + max_velocity);
-        float _turnspd = (newmax - velocity) / newmax;
+        transform.RotateAround(wheel.position, Vector3.up, deltaX * turn_speed * (Mathf.Abs(velocity) + 3));
+    }
 
-        transform.RotateAround(wheel.position, Vector3.up, deltaX * _turnspd/*turn_speed / (Mathf.Abs(velocity)/  + 1)*/);
+    void handle_Stamina()
+    {
+        if (stamina <= 0f) can_use_stamina = false;
+        else if (stamina >= 20f) can_use_stamina = true;
+
+        stamina = Mathf.Clamp(stamina + (using_stamina ? -1 / endurance : regeneration) * Time.deltaTime * 100f, 0, 100);
     }
 }
