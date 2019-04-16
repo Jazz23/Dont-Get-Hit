@@ -45,6 +45,8 @@ public class movement : MonoBehaviour
     private CharacterController _charController;
     BasePlayer _basePlayer;
     Transform _leanObj;
+    Vector3 direction;
+
     void Start()
     {
         _charController = GetComponent<CharacterController>();

@@ -9,6 +9,8 @@ namespace Assets.Binaries
     public static partial class Binaries
     {
         public enum aActions { ACCELERATING, DECELERATING, STOPPED, TURNING, THIRDPERSON, JUMPING, STAMINA, LEANLEFT, LEANRIGHT, NULLACTION }
+        public const bool Open = true;
+        public const bool Closed = false;
 
         public static Vector3 GetDirection(Quaternion rotation, float fl_translatespeed)
         {
@@ -67,6 +69,13 @@ namespace Assets.Binaries
         public static int ToInt(this bool bol)
         {
             return bol ? 1 : 0;
+        }
+
+        public static BasePlayer GetClosestPlayer(this Vector3 position)
+        {
+            var players = GameObject.FindObjectsOfType<BasePlayer>().ToList();
+            players.OrderBy(x => Vector3.Distance(x.transform.position, position));
+            return players.FirstOrDefault();
         }
     }
 }

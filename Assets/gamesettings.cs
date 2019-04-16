@@ -5,26 +5,6 @@ using System.Text;
 
 namespace Assets
 {
-    public static class __BasePlayer
-    {
-
-        //autism remove soon
-        public static int i_health;
-        
-        public static float fl_maxVel;
-        public static float fl_minVel;
-        public static float fl_stamina;
-        public static float fl_speed;
-        public static float fl_velocity;
-        public static float fl_acceleration;
-        public static float fl_yaw;
-        public static float fl_pitch;
-        public static float fl_friction;
-        
-        public static bool b_useStamina;
-
-        public static float Gravity = -9.8f;
-    }
     public static class GameSettings
     {
 
