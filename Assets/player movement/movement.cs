@@ -41,12 +41,8 @@ public class movement : MonoBehaviour
     }
 
     public Transform wheel;
-
     private CharacterController _charController;
     BasePlayer _basePlayer;
-    Transform _leanObj;
-    Vector3 direction;
-
     void Start()
     {
         _charController = GetComponent<CharacterController>();
@@ -54,39 +50,9 @@ public class movement : MonoBehaviour
         _basePlayer = gameObject.GetComponent<BasePlayer>();
         if (!_basePlayer)//error handling needed
             return;
-
-        foreach (Transform child in transform)
-            if (child.tag == "LeanBase")
-            {
-                _leanObj = child;
-                break;
-            }
-        if (!_leanObj)//error handling needed
-            return;
     }
 
-    Binaries.aActions HandleLeaning(out float leanx)
-    {
-        Binaries.aActions status = Binaries.aActions.NULLACTION;
-        // _basePlayer.LeanFloat +=
-        if (Input.GetKey(KeyCode.Q))
-        {
-            status = Binaries.aActions.LEANLEFT;
-            leanx = leanSpeed;
-        }
-        else if (Input.GetKey(KeyCode.E))
-        {
-            status = Binaries.aActions.LEANRIGHT;
-            leanx = leanSpeed;
-        }
-        else //check if we are close to 0 so there is no jittering
-        {
-            status = Binaries.aActions.NULLACTION;
-            leanx = -((Mathf.Abs(_basePlayer.LeanAngle) / _basePlayer.LeanAngle) * leanSpeed);
-        }
-        return status;
-    }
-
+   
     void Update()
     {
         handle_Stamina();

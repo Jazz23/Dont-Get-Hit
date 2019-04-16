@@ -12,6 +12,8 @@ namespace Assets.Binaries
         public const bool Open = true;
         public const bool Closed = false;
 
+        public static aActions PlayerActions;
+
         public static Vector3 GetDirection(Quaternion rotation, float fl_translatespeed)
         {
             float angle = rotation.y;
