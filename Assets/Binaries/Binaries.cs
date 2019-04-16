@@ -10,6 +10,8 @@ namespace Assets.Binaries
     {
         public enum aActions { ACCELERATING, DECELERATING, STOPPED, TURNING, THIRDPERSON, JUMPING, STAMINA, LEANLEFT, LEANRIGHT, NULLACTION }
 
+        public static aActions PlayerActions;
+
         public static Vector3 GetDirection(Quaternion rotation, float fl_translatespeed)
         {
             float angle = rotation.y;
