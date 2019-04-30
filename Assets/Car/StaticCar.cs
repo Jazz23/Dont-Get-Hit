@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-using static Assets.Binaries.Binaries;
+using Assets.Binaries;
 
 namespace Assets.Car
 {
@@ -11,8 +11,9 @@ namespace Assets.Car
     {
 
         public float threshold = 3f;
-        public bool door = Open;
+        public bool door = Binaries.Binaries.Open;
         BasePlayer player;
+        CarYeet moving_car;
 
         void Start()
         {

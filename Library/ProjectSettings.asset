@@ -632,10 +632,10 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
-    Collab: 1
+    Collab: 0
     UNet: 1
   facebookSdkVersion: 7.9.4
-  apiCompatibilityLevel: 2
+  apiCompatibilityLevel: 3
   cloudProjectId: 9632e0a6-93ab-4fec-92a5-c7fc0d66c6e0
   projectName: Dont_Get_Hit
   organizationId: justinfrauenhofer
