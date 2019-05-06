@@ -26,7 +26,7 @@ public class movement : MonoBehaviour
     public float power = 1f;
     public bool can_use_stamina = true;
 
-    public float leanSpeed = 1f;
+    public float leanSpeed = 0.001f;
 
     public float testy = 0;
 
@@ -41,12 +41,16 @@ public class movement : MonoBehaviour
     }
 
     public Transform wheel;
+    public Transform _head;
+    public Transform _body;
     private CharacterController _charController;
     BasePlayer _basePlayer;
     void Start()
     {
         _charController = GetComponent<CharacterController>();
         wheel = GetComponentsInChildren<Transform>().FirstOrDefault(x => x.name == "Circle_004");
+        _head = GetComponentsInChildren<Transform>().FirstOrDefault(x => x.name == "Head");
+        _body = GetComponentsInChildren<Transform>().FirstOrDefault(x => x.name == "Body");
         _basePlayer = gameObject.GetComponent<BasePlayer>();
         if (!_basePlayer)//error handling needed
             return;
@@ -78,8 +82,40 @@ public class movement : MonoBehaviour
         movement.y = gravity;
         movement = transform.TransformDirection(movement);
         _charController.Move(movement);
-
+        handle_lean();
         transform.RotateAround(wheel.position, Vector3.up, deltaX * turn_speed * (Mathf.Abs(velocity) + 3));
+    }
+    float handle_lean()
+    {
+        _basePlayer.maxLeanAngle = 10.0f;
+        float _return = 0.0f;
+
+        bool moving = (_basePlayer.movement.velocity > 0);
+
+        if (moving && Input.GetKey(KeyCode.Q))
+        {
+            if (_basePlayer.LeanAngle <= _basePlayer.maxLeanAngle)
+                _return = 1.0f;
+        }
+        else if (moving && Input.GetKey(KeyCode.E))
+        {
+            if (_basePlayer.LeanAngle >= -_basePlayer.maxLeanAngle)
+                _return = -1.0f;
+        }
+        else if (!Mathf.Approximately(_basePlayer.LeanAngle, 0.0f))
+        {
+            _return = -(Mathf.Sign(_basePlayer.LeanAngle));
+        }
+        _return *= leanSpeed;
+        _basePlayer.LeanAngle += _return;
+
+        Debug.Log(_basePlayer.LeanAngle);
+        Debug.Log(_return);
+
+        _body.RotateAround(wheel.position, _return);
+        _head.RotateAround(wheel.position, _return);
+        transform.RotateAround(wheel.position, _return);
+        return _return;
     }
 
     void handle_Stamina()
