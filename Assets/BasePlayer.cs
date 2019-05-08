@@ -27,6 +27,7 @@ public class BasePlayer : MonoBehaviour
     public List<StaticCar> static_cars;
     public List<CarYeet> moving_cars;
     public float maxLeanAngle;
+    public bool dead = false;
 
     public Vector3 Viewangles
     {

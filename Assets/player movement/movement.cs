@@ -10,7 +10,7 @@ using Assets.Binaries;
 [AddComponentMenu("Control Script/FPS Input")]
 public class movement : MonoBehaviour
 {
-    public float max_velocity = 1f;
+    public float max_velocity = 0.18f;
     public float min_velocity = -0.005f;
     public float velocity = 0f;
     public float acceleration = 0.15f;
@@ -59,6 +59,8 @@ public class movement : MonoBehaviour
    
     void Update()
     {
+        if (_basePlayer.dead) return;
+
         handle_Stamina();
         float deltaX = Input.GetAxis("Horizontal");
         float deltaZ = Input.GetAxis("Vertical");
@@ -78,6 +80,7 @@ public class movement : MonoBehaviour
             velocity = Mathf.Clamp(velocity, min_velocity, Mathf.Infinity);
         }
 
+        velocity = Mathf.Clamp(velocity, min_velocity, max_velocity);
         Vector3 movement = new Vector3(0, 0, velocity);
         movement.y = gravity;
         movement = transform.TransformDirection(movement);
@@ -109,8 +112,8 @@ public class movement : MonoBehaviour
         _return *= leanSpeed;
         _basePlayer.LeanAngle += _return;
 
-        Debug.Log(_basePlayer.LeanAngle);
-        Debug.Log(_return);
+        //Debug.Log(_basePlayer.LeanAngle);
+        //Debug.Log(_return);
 
         _body.RotateAround(wheel.position, _return);
         _head.RotateAround(wheel.position, _return);
