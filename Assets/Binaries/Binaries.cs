@@ -79,5 +79,10 @@ namespace Assets.Binaries
             players.OrderBy(x => Vector3.Distance(x.transform.position, position));
             return players.FirstOrDefault();
         }
+
+        public static Vector3 Clone(this Vector3 vec)
+        {
+            return new Vector3(vec.x, vec.y, vec.z);
+        }
     }
 }

@@ -1,50 +1,59 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System.Text;
+using Assets.Binaries;
 
 namespace Assets.Car
 {
     class Traffic : MonoBehaviour
     {
-        Vector3 startpos;
-        public float trans_start = 71.5f;
-        public float trans_end = 79.5f;
-        public float velocity = 3f;
+        public GameObject car_prefab;
+        public float velocity = 5f;
+        public float spawnFrequency = 1f;
+        public Vector3 endRoad;
+        public List<GameObject> cars = new List<GameObject>();
+
         void Start()
         {
-            startpos = transform.position;
+            StartCoroutine(spawnCars());
+        }
+
+        IEnumerator spawnCars()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(spawnFrequency / 10f);
+                var car = Instantiate(car_prefab, transform.position.Clone(), Quaternion.identity);
+                cars.Add(car);
+            }
         }
 
         void Update()
         {
-
-            Vector3 pos = transform.position;
-            pos.z += velocity;
-            transform.position = pos;
-
-            if (transform.position.z > trans_start)
+            foreach (GameObject car in cars)
             {
-                //var color = GetComponent<Renderer>().material.color;
-                //color.a = alpha(transform.position.z) / 255f;
-                //GetComponent<Renderer>().material.color = color;
-                Debug.Log(transform.position.z.ToString() + ", " + alpha(transform.position.z));
+                if (!car || !car.active || car == null || !car.transform)
+                {
+                    cars.Remove(car);
+                    Destroy(car);
+                    break;
+                }
+
+                if (!car.GetComponent<Car>().IsGrounded) break;
+
+                var newpos = car.transform.position.Clone();
+                newpos += car.transform.TransformDirection(Vector3.forward * velocity);
+                if (Vector3.Distance(newpos, endRoad) < 15)
+                {
+                    cars.Remove(car);
+                    Destroy(car);
+                    break;
+                }
+                car.GetComponent<Rigidbody>().MovePosition(newpos);
             }
-
-            if (transform.position.z > trans_end)
-            {
-                DestroyObject(gameObject);
-            }
-        }
-
-        float alpha(float x)
-        {
-            float y = 0;
-
-            y = 255f / (trans_start - trans_end) * (x - trans_start) + 255f;
-
-            return y;
         }
     }
 }

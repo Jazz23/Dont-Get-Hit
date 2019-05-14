@@ -59,7 +59,7 @@ public class movement : MonoBehaviour
    
     void Update()
     {
-        if (_basePlayer.dead) return;
+        if (_basePlayer.Dead) return;
 
         handle_Stamina();
         float deltaX = Input.GetAxis("Horizontal");

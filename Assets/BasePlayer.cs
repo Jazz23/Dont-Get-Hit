@@ -28,6 +28,21 @@ public class BasePlayer : MonoBehaviour
     public List<CarYeet> moving_cars;
     public float maxLeanAngle;
     public bool dead = false;
+    public gamemonitor monitor;
+    public bool Dead
+    {
+        get
+        {
+            return dead;
+        }
+        set { dead = value; if (value) gameObject.Explode(400); }
+    }
+
+    public IEnumerator Die()
+    {
+        yield return new WaitForSeconds(1);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("BaseScene");
+    }
 
     public Vector3 Viewangles
     {
@@ -41,6 +56,7 @@ public class BasePlayer : MonoBehaviour
     {
         movement = GetComponent<movement>();
         lookaround = GetComponent<lookaround>();
+        monitor = GameObject.Find("Game Monitor").GetComponent<gamemonitor>();
 	}
     void Update()
     {

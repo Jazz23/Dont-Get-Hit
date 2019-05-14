@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.player_movement
 {
@@ -14,7 +10,10 @@ namespace Assets.player_movement
             if (collision.gameObject.tag == "NoCollide") return;
             if (collision.gameObject.name.ToUpper().Contains("CURB") || collision.gameObject.name.ToUpper().Contains("ROAD")) return;
 
-            GetComponent<BasePlayer>().dead = true;
+            Debug.Log("Here1");
+            GameObject.Find("Game Monitor").GetComponent<gamemonitor>().GoToCourt(GetComponent<movement>().velocity, collision.gameObject.name.Contains("Car"));
+
+            GetComponent<BasePlayer>().Dead = true;
             gameObject.AddComponent<Rigidbody>();
             float[] range = new float[2] { 500f, 1000f };
             Vector3 randomForce = new Vector3(UnityEngine.Random.Range(range[0], range[1]), UnityEngine.Random.Range(range[0], range[1]), UnityEngine.Random.Range(range[0], range[1]));

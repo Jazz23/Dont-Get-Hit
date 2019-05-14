@@ -12,11 +12,13 @@ namespace Assets.Car
 
         public float threshold = 3f;
         public bool door = Binaries.Binaries.Open;
+        public Animator opening;
         BasePlayer player;
         CarYeet moving_car;
 
         void Start()
         {
+            opening = GetComponentInChildren<Animator>();
             player = transform.position.GetClosestPlayer();
             if (!player) player.static_cars.Add(this);
         }
@@ -31,7 +33,7 @@ namespace Assets.Car
 
         void openDoor()
         {
-            //Todo
+            opening.SetInteger("EtatAnim", 1);
         }
     }
 }

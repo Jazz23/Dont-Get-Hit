@@ -9,8 +9,10 @@ namespace Assets.Binaries
 {
     public static partial class Binaries
     {
+        //public static Material mat;
         public static void Explode(this GameObject obj, int severity)
         {
+            Material mat = Resources.Load("blood", typeof(Material)) as Material;
             Vector3 pos = obj.transform.position;
             List<GameObject> spheres = new List<GameObject>();
 
@@ -20,6 +22,7 @@ namespace Assets.Binaries
                 sphere.AddComponent<Rigidbody>();
                 sphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                 sphere.transform.position = pos;
+                sphere.GetComponent<Renderer>().material = mat;
                 foreach (GameObject sfere in spheres)
                     Physics.IgnoreCollision(sphere.GetComponent<Collider>(), sfere.GetComponent<Collider>());
                 foreach (Collider col in obj.GetComponentsInChildren<Collider>())
