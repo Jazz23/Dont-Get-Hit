@@ -28,7 +28,7 @@ public class gamemonitor : MonoBehaviour
     const int MAX_HOSPITAL_BILL = 650;
     const int MAX_BUILDING_REPAIRS = 1000;
 
-    BasePlayer BP;
+    public static BasePlayer BP;
 
     float iVel;
     public string Vel;
