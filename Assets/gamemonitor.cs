@@ -59,22 +59,32 @@ public class gamemonitor : MonoBehaviour
         decisionChance = 100;
         VelocityRatio = 0.0f;
 
+        AudioListener[] myListeners = FindObjectsOfType(typeof(AudioListener)) as AudioListener[];
+        foreach (AudioListener thisListener in myListeners)
+        {
+            thisListener.enabled = false;
+        }
+
     }
     void OnGUI()
     {
         //fuck the new unity gui.
         if (!inCourt)
         {
+            GetNewStats();
             string ds = "";
+            
             ds += "Speed = " + Mathf.Floor((BP.movement.velocity * 30)).ToString() + "\n";
-            ds += "Money($) = " + GoldAmount.ToString() + "\n";
+            ds += "Money = " + GoldAmount.ToString() + "\n";
             if (instance == this)
                 GUI.Box(new Rect(10, 10, 200, 50), ds);
         }
         else
         {
+            //BP = GameObject.Find("Player").GetComponent<BasePlayer>();
             if (courtState == INITIAL_QUESTION)
             {
+                MoneyLost.Clear();
                 if (!hitACar)
                 {
                     courtState = FINAL_MONEY_SCENE;
@@ -101,7 +111,7 @@ public class gamemonitor : MonoBehaviour
             }
             else if (courtState == COURT_OUTCOME)
             {
-                //anyone who enjoys programming in unity is not right in the head
+                //unity blows
                 if (!courtDecided)
                 {
                     int num = Random.Range(0, decisionChance);
@@ -114,7 +124,7 @@ public class gamemonitor : MonoBehaviour
                 {
                     if (!courtDecision)
                     {
-                        MoneyLost.Add(new MoneySubtraction("Court Costs", -1000));
+                        MoneyLost.Add(new MoneySubtraction("Court Costs", -500));
                         MoneyLost.Add(new MoneySubtraction("Lawyer", -300));
                         MoneyLost.Add(new MoneySubtraction("Court Costs", -300));
                     }
@@ -148,19 +158,32 @@ public class gamemonitor : MonoBehaviour
             else if (courtState == RESTART_GAME)
             {
                 //retart the game.
-                BP.StartCoroutine(BP.Die());
+                Debug.Log("TRYING TO DIEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
                 inCourt = false;
+                BP.DieNotRetarded();
+                GetNewStats();
             }
         }
     }
     //c# is quite literally the worst language ever made. if i spent my entire life writing in this managed crap i would die for sure.
     void Update()
     {
-
+    }
+    void GetNewStats()
+    {
+        BP = GameObject.Find("Player").GetComponent<BasePlayer>();
+        decisionChance = 100;
+        VelocityRatio = 0.0f;
+        AudioListener[] myListeners = FindObjectsOfType(typeof(AudioListener)) as AudioListener[];
+        foreach (AudioListener thisListener in myListeners)
+        {
+            thisListener.enabled = false;
+        }
     }
 
     public void GoToCourt(float velocityOnCrash, bool crashedIntoCar = true)
     {
+        GetNewStats();
         inCourt = true;
         courtState = INITIAL_QUESTION;
         iVel = velocityOnCrash;
@@ -168,7 +191,7 @@ public class gamemonitor : MonoBehaviour
         VelocityRatio = iVel / BP.movement.max_velocity;
         if (VelocityRatio <= 0)
             VelocityRatio = 0.001f;
-        decisionChance += (int)(2 * VelocityRatio);
+        decisionChance += Mathf.FloorToInt(30*velocityOnCrash);
         ChanceOfWinning = ((float)((((float)decisionChance - 50f) / (float)decisionChance) * 100f)).ToString();
     }
 
@@ -176,9 +199,12 @@ public class gamemonitor : MonoBehaviour
 
     void Awake()
     {
-        //if (instance) DestroyObject(gameObject);
-        DontDestroyOnLoad(gameObject);
         if (instance == null)
             instance = this;
+        else
+        {
+            Destroy(instance);
+            instance = this;
+        }
     }
 }

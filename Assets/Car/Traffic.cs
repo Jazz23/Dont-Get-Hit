@@ -42,7 +42,7 @@ namespace Assets.Car
                     break;
                 }
 
-                if (!car.GetComponent<Car>().IsGrounded) break;
+                if (car && !car.GetComponent<Car>().IsGrounded) break;
 
                 var newpos = car.transform.position.Clone();
                 newpos += car.transform.TransformDirection(Vector3.forward * velocity);

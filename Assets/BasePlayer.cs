@@ -44,6 +44,11 @@ public class BasePlayer : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("BaseScene");
     }
 
+    public void DieNotRetarded()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("BaseScene");
+    }
+
     public Vector3 Viewangles
     {
         get { return new Vector3(lookaround.fl_pitch, lookaround.fl_yaw); }
