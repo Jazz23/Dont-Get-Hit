@@ -71,7 +71,6 @@ public class gamemonitor : MonoBehaviour
         //fuck the new unity gui.
         if (!inCourt)
         {
-            GetNewStats();
             string ds = "";
             
             ds += "Speed = " + Mathf.Floor((BP.movement.velocity * 30)).ToString() + "\n";
