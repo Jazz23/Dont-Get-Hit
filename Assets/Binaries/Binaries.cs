@@ -6,8 +6,71 @@ using UnityEngine;
 
 namespace Assets.Binaries
 {
+    class InventorySystem
+    {
+        private bool ItemSelected = false;
+        private int MaxSize;
+        private int SelectedSlot;
+        List<Binaries.Items> ItemList;
+        public InventorySystem(int maxsize = 10)
+        {
+            MaxSize = maxsize;
+            for (int i = 0; i < MaxSize; i++)
+            {
+                ItemList.Add(Binaries.Items.NULL_ITEM);
+            }
+        }
+        private void SwapSlot(int slot1, int slot2)
+        {
+            Binaries.Items tmp = ItemList[slot1];
+            ItemList[slot1] = ItemList[slot2];
+            ItemList[slot2] = tmp;
+        }
+        public bool Select(int slot)
+        {
+            bool ret = false;
+            if (slot > -1 && slot <= MaxSize)
+            {
+                if (SelectedSlot == slot)
+                    SelectedSlot = -1;
+                else if (SelectedSlot > -1 && SelectedSlot <= MaxSize)
+                {
+                    SwapSlot(SelectedSlot, slot);
+                }
+            }
+            return ret;
+        }
+        public bool AddItem(Binaries.Items item)
+        {
+            bool ret = false;
+            if (ItemList.Count() < MaxSize)
+            {
+                ItemList.Add(item);
+                ret = true;
+            }
+            return ret;
+        }
+        public bool RemoveItem(int slot)
+        {
+            bool ret = false;
+            if (slot > -1 && slot <= MaxSize)
+                ItemList[slot] = Binaries.Items.NULL_ITEM;
+            return ret;
+        }
+
+    }
     public static partial class Binaries
     {
+        public enum Items
+        {
+            NULL_ITEM,
+            HELMET_CAM,
+            MOTOR,
+            NEW_BRAKES,
+            INSTANT_STOP,
+            SKIP_COURT,
+
+        }
         public enum aActions { ACCELERATING, DECELERATING, STOPPED, TURNING, THIRDPERSON, JUMPING, STAMINA, LEANLEFT, LEANRIGHT, NULLACTION }
         public const bool Open = true;
         public const bool Closed = false;
