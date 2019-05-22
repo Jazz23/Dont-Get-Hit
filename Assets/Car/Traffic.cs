@@ -14,6 +14,7 @@ namespace Assets.Car
         public float velocity = 5f;
         public float spawnFrequency = 1f;
         public Vector3 endRoad;
+        public float renderingDistance = 200f;
 
         void Start()
         {
@@ -46,6 +47,7 @@ namespace Assets.Car
             var carr = car.GetComponent<Car>();
             carr.endRoad = endRoad;
             carr.velocity = velocity;
+            carr.renderingDistance = renderingDistance;
         }
 
         IEnumerator delay(float seconds)

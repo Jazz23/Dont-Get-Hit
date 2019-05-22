@@ -11,6 +11,7 @@ namespace Assets.Car
     {
         public float velocity;
         public Vector3 endRoad;
+        public float renderingDistance;
         public bool IsGrounded
         {
             get
@@ -31,7 +32,7 @@ namespace Assets.Car
 
             var newpos = transform.position.Clone();
             newpos += transform.TransformDirection(Vector3.forward * velocity) * Time.deltaTime;
-            if (Vector3.Distance(newpos, gamemonitor.BP.transform.position) > 200)
+            if (Vector3.Distance(newpos, gamemonitor.BP.transform.position) > renderingDistance)
             {
                 Destroy(gameObject);
             }

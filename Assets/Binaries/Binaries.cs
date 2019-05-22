@@ -65,6 +65,7 @@ namespace Assets.Binaries
 
         public static float LogisticInvs(float y, float y_stretch, float x_stretch)
         {
+            if (y <= 0) y = Mathf.Abs(y) + 0.0001f;
             return -Mathf.Log(y_stretch / y - 1f) / x_stretch;
         }
 

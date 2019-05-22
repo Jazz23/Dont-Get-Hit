@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using Assets.Binaries;
+using System;
 
 // basic WASD-style movement control
 // commented out line demonstrates that transform.Translate instead of charController.Move doesn't have collision detection
@@ -60,33 +61,39 @@ public class movement : MonoBehaviour
     void Update()
     {
         if (_basePlayer.Dead) return;
-
-        handle_Stamina();
-        float deltaX = Input.GetAxis("Horizontal");
-        float deltaZ = Input.GetAxis("Vertical");
-        float boost = using_stamina.ToInt() * power * (velocity > 0).ToInt();
-
-        if (deltaZ > 0)
+        try
         {
-            float c = 0.001f;
-            float x = Binaries.LogisticInvs(velocity + c, max_velocity + c, acceleration) + Time.deltaTime * acceleration;
-            velocity = Binaries.Logistic(x, max_velocity + c, acceleration);
-        }
-        else
-        {
-            float mew = friction + breaking.ToInt() * break_speed;
-            velocity = Mathf.Abs(velocity) <= mew ? 0 : velocity - Mathf.Sign(velocity) * mew;
-            velocity += deltaZ * 0.005f;
-            velocity = Mathf.Clamp(velocity, min_velocity, Mathf.Infinity);
-        }
+            handle_Stamina();
+            float deltaX = Input.GetAxis("Horizontal");
+            float deltaZ = Input.GetAxis("Vertical");
+            float boost = using_stamina.ToInt() * power * (velocity > 0).ToInt();
 
-        velocity = Mathf.Clamp(velocity, min_velocity, max_velocity);
-        Vector3 movement = new Vector3(0, 0, velocity);
-        movement.y = gravity;
-        movement = transform.TransformDirection(movement);
-        _charController.Move(movement);
-        handle_lean();
-        transform.RotateAround(wheel.position, Vector3.up, deltaX * turn_speed * (Mathf.Abs(velocity) + 3));
+            if (deltaZ > 0)
+            {
+                float c = 0.001f;
+                float x = Binaries.LogisticInvs(velocity + c, max_velocity + c, acceleration) + Time.deltaTime * acceleration;
+                velocity = Binaries.Logistic(x, max_velocity + c, acceleration);
+            }
+            else
+            {
+                float mew = friction + breaking.ToInt() * break_speed;
+                velocity = Mathf.Abs(velocity) <= mew ? 0 : velocity - Mathf.Sign(velocity) * mew;
+                velocity += deltaZ * 0.005f;
+                velocity = Mathf.Clamp(velocity, min_velocity, Mathf.Infinity);
+            }
+
+            velocity = Mathf.Clamp(velocity, min_velocity, max_velocity);
+            Vector3 movement = new Vector3(0, 0, velocity);
+            movement.y = gravity;
+            movement = transform.TransformDirection(movement);
+            _charController.Move(movement);
+            handle_lean();
+            transform.RotateAround(wheel.position, Vector3.up, deltaX * turn_speed * (Mathf.Abs(velocity) + 3));
+        }
+        catch (Exception ex)
+        {
+            print(velocity);
+        }
     }
     float handle_lean()
     {
