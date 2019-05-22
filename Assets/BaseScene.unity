@@ -37674,7 +37674,7 @@ Prefab:
     - target: {fileID: 114633650423462234, guid: 4093d7f27d3cd434a9a81c89297df35f,
         type: 2}
       propertyPath: min_velocity
-      value: -0.005
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 114633650423462234, guid: 4093d7f27d3cd434a9a81c89297df35f,
         type: 2}
@@ -37702,6 +37702,11 @@ Prefab:
         type: 2}
       propertyPath: PlayerActions
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114633650423462234, guid: 4093d7f27d3cd434a9a81c89297df35f,
+        type: 2}
+      propertyPath: acceleration
+      value: 1.2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114579296524542288, guid: 4093d7f27d3cd434a9a81c89297df35f, type: 2}

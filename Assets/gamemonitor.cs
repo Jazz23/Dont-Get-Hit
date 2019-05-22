@@ -68,6 +68,19 @@ public class gamemonitor : MonoBehaviour
     }
     void OnGUI()
     {
+        if (Time.realtimeSinceStartup < 5)
+            GUI.Box(new Rect(s_width / 2 - 75, 100, 150, 25), "GET TO THE END!");
+
+        if (BP.transform.position.z >= 446f)
+        {
+            GUI.Box(new Rect(s_width / 2 - 75, 100, 150, 25), "YOU WON $5000!");
+            if (GUI.Button(new Rect(s_width / 2 - 25, 120, 50, 50), "OK"))
+            {
+                GoldAmount += 5000;
+                BP.DieNotRetarded();
+            }
+        }
+
         //fuck the new unity gui.
         if (!inCourt)
         {
@@ -164,7 +177,7 @@ public class gamemonitor : MonoBehaviour
             }
         }
     }
-    //c# is quite literally the worst language ever made. if i spent my entire life writing in this managed crap i would die for sure.
+
     void Update()
     {
     }
